@@ -144,7 +144,7 @@ public static function what_is_foo()
 Printing your HTML from functions doesn't provide much flexibility, and it looks pretty ugly. Views allow you to use files in .html format 
 to display your frontend to the user. At the moment Larkspur only supports Twig out-of-the-box. This will change in the future, of course.
 
-** about.html **
+**about.html**
 
 ```html
 <!doctype html>
