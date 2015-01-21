@@ -23,14 +23,14 @@ As it stands, there is no real config. It's still a work in progress, ok?? So cu
 and create your apps in the ```app/``` directory. Everything in ```lib``` is related to Larkspur, its modules and core code.. so best to stay away 
 from there, unless you intend to install/write a new module, of course.
 
-** index.php **
+**index.php**
 ```php
 require 'lib/Larkspur.php';
 $app = new Larkspur();
 $app->load_app('MyApp')->run();
 ```
 
-** app/MyApp/Controller/Root.php **
+**app/MyApp/Controller/Root.php**
 ```php
 namespace MyApp\Controller;
 
