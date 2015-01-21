@@ -110,3 +110,82 @@ public static function say($name)
 As you can see, there's no strict phpdoc required for the bridge function, but it's nice to let people know what it's doing. We assigned 
 ```@bridge function_name``` to tell the action what method should be checked first. Obviously multiple actions can point to a single bridge, 
 so use ```get_func_args()``` to grab the arguments if you need.
+
+## Stash
+Most frameworks will provide some kind of stash mechanism. This let's you create a temporary value that can be accessed in views, or between bridges and actions. There are two ways to access the stash
+
+1. ```php \Session::stash(array('foo' => 'bar')); // sets items in the stash
+2. ```php \Session::stash('foo'); // retrieves. This will return 'bar'
+
+Let's take a look at a proper example where we set something in the bridge and access it from an action.
+
+```php
+/**
+ * Set a value in stash to be accessed from actions using this bridge
+ */
+public static function set_value()
+{
+	\Session::stash(array('foo' => 'bar'));
+	return true;
+}
+
+/**
+ * @route /what-is/foo
+ * @method get
+ * @bridge set_value
+ */
+public static function what_is_foo()
+{
+	echo "Foo is: " . \Session::stash('foo');
+}
+```
+
+## Views
+Printing your HTML from functions doesn't provide much flexibility, and it looks pretty ugly. Views allow you to use files in .html format 
+to display your frontend to the user. At the moment Larkspur only supports Twig out-of-the-box. This will change in the future, of course.
+
+** about.html **
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{{ title }}</title>
+  </head>
+  <body>
+  	<p>Hello, {{ name }}</p>
+  </body>
+</html>
+```
+
+**app/MyApp/Controller/Info.php**
+
+```php
+namespace MyApp\Controller;
+
+class Info extends \Controller
+{
+	public static function about()
+	{
+		\Session::stash(
+			array(
+				'title' => 'About MyApp Company',
+				'name'  => 'World'
+			)
+		);
+
+		\View::detach();
+	}
+}
+```
+
+Once ```\View::detach()``` is called, it will tell Twig to process the template ```app/MyApp/views/about.html```, using the function 
+name as the template name, followed by the .html prefix.
+As you see, the contents of your stash is included in the template, however, you can also add your own variables by passing an 
+associative array to the detach function.
+
+```php
+\View::detach(array('foo' => 'bar'));
+```
+
+If you have a stash and custom array in detach, it will merge them both.
