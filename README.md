@@ -114,8 +114,8 @@ so use ```get_func_args()``` to grab the arguments if you need.
 ## Stash
 Most frameworks will provide some kind of stash mechanism. This let's you create a temporary value that can be accessed in views, or between bridges and actions. There are two ways to access the stash
 
-1. ```php \Session::stash(array('foo' => 'bar')); // sets items in the stash
-2. ```php \Session::stash('foo'); // retrieves. This will return 'bar'
+1. ```php \Session::stash(array('foo' => 'bar')); // sets items in the stash```
+2. ```php \Session::stash('foo'); // retrieves. This will return 'bar'```
 
 Let's take a look at a proper example where we set something in the bridge and access it from an action.
 
