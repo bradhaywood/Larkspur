@@ -72,3 +72,41 @@ public static function perform_action($code, $action)
 	echo "I'm going to perform '$action' on product '$code'";
 }
 ```
+
+In the first greet example, if the user browses to ```/greet/World```, they will be presented with "Hello there, World". 
+The second example uses two variables, so the path might look like ```/code/TESTCODE/action/EDIT```.
+
+## Bridging
+Now you've learned the basics behind routing, we can look at another helpful feature: bridges. A bridge function will only return 
+either true **or** false, nothing else. If a path has a bridge, then its bridge function is always called first. If it returns false, 
+then the user will get a 403 not authorized message, otherwise it will follow through to the path they originally wanted.
+You can also set stash values in bridge functions which will in turn be passed down to the action, but we'll look at those later.
+
+```php
+/**
+ * If the name passed to /say is not World, then
+ * return false. Otherwise, let's let them through
+ */
+public static function say_bridge()
+{
+	$args = get_func_args();
+	if ($args[0] == "World")
+		return true;
+
+	return false;
+}
+
+/**
+ * @route /say/:name
+ * @bridge say_bridge
+ * @method get
+ */
+public static function say($name)
+{
+	echo "Hello, $name";
+}
+```
+
+As you can see, there's no strict phpdoc required for the bridge function, but it's nice to let people know what it's doing. We assigned 
+```@bridge function_name``` to tell the action what method should be checked first. Obviously multiple actions can point to a single bridge, 
+so use ```get_func_args()``` to grab the arguments if you need.
