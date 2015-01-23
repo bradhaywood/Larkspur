@@ -2,6 +2,11 @@
 namespace MyApp\Controller;
 
 class Root extends \Controller {
+    public static function auto()
+    {
+        echo "Auto ran first!<br>";
+    }
+
     /**
      *  @route / 
      *  @method get
