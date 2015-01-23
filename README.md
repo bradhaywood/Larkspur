@@ -140,6 +140,28 @@ public static function what_is_foo()
 }
 ```
 
+## The auto method
+The ```auto``` method is ran before every action in its controller. So you can stick things you want to check or set for
+all actions.
+
+```php
+public static function auto()
+{
+    \Session::stash(array('title' => 'My lovely app'));
+    echo "I will be ran first!<br>";
+}
+
+/**
+ * @route /
+ * @method get
+ */
+public static function index()
+{
+    echo "I will be ran second<br>";
+    echo \Session::stash('title');
+}
+```
+
 ## Views
 Printing your HTML from functions doesn't provide much flexibility, and it looks pretty ugly. Views allow you to use files in .html format 
 to display your frontend to the user. At the moment Larkspur only supports Twig out-of-the-box. This will change in the future, of course.
