@@ -50,6 +50,11 @@ class Larkspur {
         if (strstr($uri, '?'))
             $uri = substr($uri, 0, strpos($uri, '?'));
 
+        $doAuto = function($route) {
+            $class = $route['class'];
+            call_user_func("${class}::auto");
+        };
+
         $doBridge = function($route, $finalArgs) {
             $class = $route['class'];
             $bridge = $route['bridge'];
@@ -81,6 +86,9 @@ class Larkspur {
                         $finalArgs = array();
                         foreach ($uri_matches as $arg) { array_push($finalArgs, $arg[0]); }
 
+                        if (method_exists($route['class'], 'auto'))
+                            $doAuto($route);
+
                         if ($route['bridge'] !== false)
                             $doBridge($route, $finalArgs);
 
@@ -94,6 +102,9 @@ class Larkspur {
             if ($route['route'] == $uri) {
                 if (strtolower($method) != $route['method'])
                     \Larkspur::error(400);
+
+                if (method_exists($route['class'], 'auto'))
+                    $doAuto($route);
 
                 if ($route['bridge'] !== false)
                     $doBridge($route);
