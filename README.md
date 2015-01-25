@@ -162,6 +162,33 @@ public static function index()
 }
 ```
 
+### Catchall ###
+In rare cases, you may want a single method to catch every single request (ie: writing a CMS). You can do so by placing a special method in the **Root** 
+controller called ```__catchall```.
+
+```php
+namespace MyCMS\Controller;
+
+class Root extends \Controller
+{
+	public static function __catchall()
+	{
+		// route special paths to a different method if you need
+		if (\Request::uri() == '/login') {
+			self::login();
+			return true;
+		}
+
+		echo "Hello, from " . \Request::uri();
+	}
+
+	public static function login()
+	{
+		echo "Login page!";
+	}
+}
+```
+
 ## Views
 Printing your HTML from functions doesn't provide much flexibility, and it looks pretty ugly. Views allow you to use files in .html format 
 to display your frontend to the user. At the moment Larkspur only supports Twig out-of-the-box. This will change in the future, of course.
