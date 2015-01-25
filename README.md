@@ -238,3 +238,26 @@ associative array to the detach function.
 ```
 
 If you have a stash and custom array in detach, it will merge them both.
+
+### Views / json
+If you're implementing an API, you can use the ```json``` method in the View controller. Just pass that anything, and it will 
+return an encoded json string and include the application/json header too.
+
+```php
+class API extends \Controller
+{
+	/**
+	 * @route /api/test
+	 * @method get
+	 */
+	public static function test_api()
+	{
+		\View::json(
+			array(
+				'foo' => 'bar',
+				'baz' => 'jazz'
+			)
+		);
+	}
+}
+```

@@ -1,4 +1,5 @@
 <?php
+header('X-Powered-By: Larkspur');
 require_once('lib/Larkspur/Controller.php');
 require_once('lib/Larkspur/Params.php');
 require_once('lib/Larkspur/ErrorHandler.php');
