@@ -4,6 +4,7 @@ require_once('lib/Larkspur/Params.php');
 require_once('lib/Larkspur/ErrorHandler.php');
 require_once('lib/Larkspur/View.php');
 require_once('lib/Larkspur/Session.php');
+require_once('lib/Larkspur/Request.php');
 
 class Larkspur {
     protected $routes = array();
@@ -44,6 +45,11 @@ class Larkspur {
     }
 
     public function run() {
+        if (method_exists(self::$app . '\Controller\Root', '__catchall')) {
+            call_user_func(self::$app . '\Controller\Root::__catchall');
+            return true;
+        }
+
         $method = $_SERVER['REQUEST_METHOD'];
         $uri    = $_SERVER['REQUEST_URI'];
 
