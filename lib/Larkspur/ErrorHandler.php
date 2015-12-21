@@ -23,6 +23,7 @@ class ErrorHandler {
                 break;
         }
 
+        header(sprintf("HTTP/1.1 %d %s", $this->code, $msg));
         die("<h1>$msg</h1>");
     }
 }
