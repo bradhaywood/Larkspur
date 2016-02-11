@@ -4,6 +4,7 @@ require_once('lib/Larkspur/Controller.php');
 require_once('lib/Larkspur/Params.php');
 require_once('lib/Larkspur/ErrorHandler.php');
 require_once('lib/Larkspur/View.php');
+require_once('lib/Larkspur/Model.php');
 require_once('lib/Larkspur/Session.php');
 require_once('lib/Larkspur/Request.php');
 
@@ -26,7 +27,17 @@ class Larkspur {
                 //echo "(route: " . $route["route"] . ", method: ". $route["method"]. ")\n";
                 array_push($this->routes, $route);
             }
-        }    
+        }
+
+        // load Models
+        foreach (glob("app/$app/Model/*.php") as $filename) {
+            include $filename;
+            $base = basename($filename, ".php");
+            $mod  = "${app}\Model\\" . $base;
+            $mod_obj = new $mod();
+            // if function build exists TODO
+            \Model::init($base, $mod_obj->build());
+        }   
         
         return $this;
     }

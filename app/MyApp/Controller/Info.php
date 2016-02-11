@@ -7,6 +7,7 @@ class Info extends \Controller {
       * @method get
       */
     public static function info() {
-        echo "Informationings!";
+        $mod = \Model::get('TestDB');
+        echo "Informationings: " . $mod['foo'];
     }
 }
