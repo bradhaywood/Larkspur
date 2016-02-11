@@ -6,7 +6,12 @@ namespace MyApp\Model;
 class TestDB extends \Model {
     public function __construct() {}
     public function build() {
-        return array("foo" => "bar");
+        return new \Jellybean(
+            array(
+                'driver' => 'sqlite',
+                'dbname' => 'test.db'
+            )
+        );
     }
 }
 

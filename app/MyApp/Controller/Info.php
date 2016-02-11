@@ -8,6 +8,7 @@ class Info extends \Controller {
       */
     public static function info() {
         $mod = \Model::get('TestDB');
-        echo "Informationings: " . $mod['foo'];
+        $users = $mod->table('users');
+        \View::detach(array("users" => $users->search()));
     }
 }

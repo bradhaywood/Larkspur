@@ -20,7 +20,7 @@ class Jellybean {
                     $_pdo = new PDO($dsn);
                 }
                 catch (PDOException $err) {
-                    fputs(STDERR, "Something went wrong: $err");
+                    die("Something went wrong: $err");
                     exit(1);
                 }
                 $this->pdo = $_pdo;
