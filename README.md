@@ -261,3 +261,33 @@ class API extends \Controller
 	}
 }
 ```
+
+## Models
+Larkspur supports models to some degree. It's basically just a way of storing an instance to be reused any where in your application. This is very handy for working with databases.
+You can create as many models as you want in ```app/MyApp/Model/ModelName.php```.
+You will need to create a ```build``` function which returns the instance you want to use. Below, we're using a DB library that comes with Larkspur to create a SQLite model called TestDB.
+
+```php
+namespace MyApp\Model;
+
+\Larkspur::module('Database/Jellybean');
+
+class TestDB extends \Model {
+    public function __construct() {}
+    public function build() {
+        return new \Jellybean(
+            array(
+                'driver' => 'sqlite',
+                'dbname' => 'test.db'
+            )
+        );
+    }
+}
+```
+
+That's it. On start up, Larkspur will automatically detect all your models and load them, so all you have to do in your controllers is:
+
+```php
+$schema = \Model::get('TestDB'); // retrieves the instance build() returned in your model
+$users  = $schema->table('users'); // now we can use it as normal anywhere
+```
