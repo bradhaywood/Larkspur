@@ -17,7 +17,19 @@ class View
 	{
 		list(, $caller) = debug_backtrace(false);
 		$newArgs = array_merge(\Session::stash(), $args);
-		echo self::$template->render($caller['function'] .".html", $newArgs);
+        $class = $caller['class'];
+        $folders = "";
+        if (preg_match("/^.*\\\\Controller\\\\(.*)$/", $class, $matches)) {
+            if (isset($matches[1])) {
+                $class = strtolower($matches[1]);
+                $folders = str_replace('\\\\', '/', $class);
+            }
+        }
+        $file = $caller['function'] . ".html";
+        if (strlen($folders) > 0)
+            $file = "${folders}/${file}";
+
+		echo self::$template->render($file, $newArgs);
 	}
 
 	public static function json($mixed)

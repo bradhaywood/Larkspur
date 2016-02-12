@@ -17,15 +17,21 @@ class Larkspur {
     public function load_app($app) {
         self::$app = $app;
         \View::init();
-        foreach (glob("app/$app/Controller/*.php") as $filename) {
-            include $filename;
-            $base = basename($filename, ".php");
-            $cont = "${app}\Controller\\" . $base;
-            $cont_obj = new $cont();
-            //$cont
-            foreach ($cont_obj->get_routes() as $route) {
-                //echo "(route: " . $route["route"] . ", method: ". $route["method"]. ")\n";
-                array_push($this->routes, $route);
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator("app/$app/Controller")) as $filename) {
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+            if ($ext == "php") {
+                include $filename;
+                //$base = basename($filename, ".php");
+                $base = str_replace("app/${app}/Controller/", "", $filename);
+                $base = str_replace(".php", "", $base);
+                $base = str_replace("/", "\\", $base);
+                $cont = "${app}\Controller\\" . $base;
+                $cont_obj = new $cont();
+                //$cont
+                foreach ($cont_obj->get_routes() as $route) {
+                    //echo "(route: " . $route["route"] . ", method: ". $route["method"]. ")\n";
+                    array_push($this->routes, $route);
+                }
             }
         }
 
