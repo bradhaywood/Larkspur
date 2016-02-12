@@ -228,7 +228,7 @@ class Info extends \Controller
 }
 ```
 
-Once ```\View::detach()``` is called, it will tell Twig to process the template ```app/MyApp/views/about.html```, using the function 
+Once ```\View::detach()``` is called, it will tell Twig to process the template ```app/MyApp/views/info/about.html```, using the function 
 name as the template name, followed by the .html prefix.
 As you see, the contents of your stash is included in the template, however, you can also add your own variables by passing an 
 associative array to the detach function.
@@ -238,6 +238,9 @@ associative array to the detach function.
 ```
 
 If you have a stash and custom array in detach, it will merge them both.
+
+Remember that if the controller is not root, then your templates will need to go inside a directory with the base classes name in all lowercase.
+So, for example, if the controller class looked like```MyApp\Controller\Multi\TestController```, then your templates would need to go in ```app/MyApp/views/multi/testcontroller/```
 
 ### Views / json
 If you're implementing an API, you can use the ```json``` method in the View controller. Just pass that anything, and it will 
