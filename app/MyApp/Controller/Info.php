@@ -11,4 +11,14 @@ class Info extends \Controller {
         $users = $mod->table('users');
         \View::detach(array("users" => $users->search()));
     }
+    
+    /**
+     * @route /info/products
+     * @method get
+     */
+    public static function products() {
+        $mod = \Model::get('TestDB');
+        $prods = $mod->table('products');
+        \View::detach(array("products" => $prods->search()));
+    }
 }
