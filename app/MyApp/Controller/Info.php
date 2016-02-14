@@ -13,7 +13,7 @@ class Info extends \Controller {
     }
     
     /**
-     * @route /info/products
+     * @route products
      * @method get
      */
     public static function products() {

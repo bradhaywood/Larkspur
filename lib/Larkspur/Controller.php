@@ -13,6 +13,20 @@ class Controller {
             $bridge = \Larkspur\Module\Utils::getDocComment($doc, '@bridge');
 
             if (!empty($route) and !empty($method)) {
+                if (substr($route, 0, 1) != '/') {
+                    $cpat = '#' . \Larkspur::$app . '\\\\Controller\\\\(.+)' . '#';
+                    if (preg_match($cpat, $class, $matches)) {
+                        $minclass = str_replace(
+                            '\\',
+                            '/',
+                            strtolower($matches[1])
+                        );
+                        if ($route == 'index')
+                            $route = "/${minclass}";
+                        else
+                            $route = "/${minclass}/${route}";
+                    }
+                }
                 array_push($this->routes, array(
                     'class'  => $class,
                     'route'  => $route,
