@@ -1,15 +1,15 @@
 <?php
 namespace MyApp\Model;
 
-\Larkspur::module('Database/Jellybean');
+\Larkspur::module('Database/Medoo');
 
 class TestDB extends \Model {
     public function __construct() {}
     public function build() {
-        return new \Jellybean(
+        return new \Medoo(
             array(
-                'driver' => 'sqlite',
-                'dbname' => 'test.db'
+                'database_type' => 'sqlite',
+                'database_file' => 'test.db'
             )
         );
     }

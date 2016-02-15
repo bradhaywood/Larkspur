@@ -8,8 +8,7 @@ class Info extends \Controller {
       */
     public static function info() {
         $mod = \Model::get('TestDB');
-        $users = $mod->table('users');
-        \View::detach(array("users" => $users->search()));
+        \View::detach(array("users" => $mod->select('users', ['name', 'status'])));
     }
     
     /**
@@ -18,7 +17,7 @@ class Info extends \Controller {
      */
     public static function products() {
         $mod = \Model::get('TestDB');
-        $prods = $mod->table('products');
-        \View::detach(array("products" => $prods->search()));
+        $prods = $mod->select('products',['name', 'price']);
+        \View::detach(array("products" => $prods));
     }
 }

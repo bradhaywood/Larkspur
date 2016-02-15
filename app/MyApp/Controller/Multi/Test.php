@@ -15,4 +15,10 @@ class Test extends \Controller {
      * @method get
      */
     public static function another() { echo "<h2>Testing</h2><p>Just testing</p>"; }
+
+    /**
+     * @route extended/url
+     * @method get
+     */
+    public static function extended() { echo "<h2>Extended URL</h2>"; }
 }
