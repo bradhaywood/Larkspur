@@ -22,7 +22,8 @@ class View
         if (preg_match("/^.*\\\\Controller\\\\(.*)$/", $class, $matches)) {
             if (isset($matches[1])) {
                 $class = strtolower($matches[1]);
-                $folders = str_replace('\\\\', '/', $class);
+                if ($class != 'root')
+                    $folders = str_replace('\\\\', '/', $class);
             }
         }
         $file = $caller['function'] . ".html";
