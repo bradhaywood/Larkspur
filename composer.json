@@ -1,0 +1,19 @@
+{
+    "name": "larkspur/larkspur",
+    "type": "framework",
+    "description": "Web Framework using doc comments for PHP 5.4",
+    "keywords": ["framework"],
+    "homepage": "https://github.com/bradhaywood/Larkspur",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Brad Haywood",
+            "email": "brad@geeksware.com",
+            "homepage": "",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
