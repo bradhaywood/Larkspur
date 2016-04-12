@@ -22,7 +22,10 @@ class Larkspur {
             if ($ext == "php") {
                 include $filename;
                 //$base = basename($filename, ".php");
-                $base = str_replace("app/${app}/Controller/", "", $filename);
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+                    $base = str_replace("app/${app}/Controller\\", "", $filename);
+		else
+                    $base = str_replace("app/${app}/Controller/", "", $filename);
                 $base = str_replace(".php", "", $base);
                 $base = str_replace("/", "\\", $base);
                 $cont = "${app}\Controller\\" . $base;
