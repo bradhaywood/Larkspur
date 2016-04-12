@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [ -d var/cache ]; then
-    rm -r var/cache/*
-fi
-
-php -S 0.0.0.0:5000 index.php
