@@ -20,5 +20,7 @@
         "psr-0" : {
             "Larkspur" : "lib"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
