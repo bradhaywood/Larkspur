@@ -1,12 +1,12 @@
 <?php
 header('X-Powered-By: Larkspur');
-require_once('lib/Larkspur/Controller.php');
-require_once('lib/Larkspur/Params.php');
-require_once('lib/Larkspur/ErrorHandler.php');
-require_once('lib/Larkspur/View.php');
-require_once('lib/Larkspur/Model.php');
-require_once('lib/Larkspur/Session.php');
-require_once('lib/Larkspur/Request.php');
+require_once(__DIR__ . '/Larkspur/Controller.php');
+require_once(__DIR__ . '/Larkspur/Params.php');
+require_once(__DIR__ . '/Larkspur/ErrorHandler.php');
+require_once(__DIR__ . '/Larkspur/View.php');
+require_once(__DIR__ . '/Larkspur/Model.php');
+require_once(__DIR__ . '/Larkspur/Session.php');
+require_once(__DIR__ . '/Larkspur/Request.php');
 
 class Larkspur {
     protected $routes = array();
@@ -54,7 +54,7 @@ class Larkspur {
             return true;
         }
 
-        require_once("lib/Larkspur/Module/${class}.php");
+        require_once(__DIR__ . "/Larkspur/Module/${class}.php");
     }
 
     public static function error($code) {
