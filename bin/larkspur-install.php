@@ -14,9 +14,9 @@ function addIndex() {
 
     $txt = <<<EOS
 <?php
-require __DIR__ . '/vendor/autoload.php';
-\$larkspur = new Larkspur();
-\$larkspur->load_app('MyApp')->run();
+    require __DIR__ . '/vendor/autoload.php';
+    \$larkspur = new Larkspur();
+    \$larkspur->load_app('MyApp')->run();
 ?>
 EOS;
     fwrite($idx, $txt);
@@ -24,7 +24,39 @@ EOS;
     echo("-> Created index.php\n");
 }
 
+function createTestApp() {
+    if (! (mkdir("app/MyApp/Controller", 0777, true))) {
+        echo("*** Failed to create controller directory\n");
+        exit();
+    }
+
+    mkdir("app/MyApp/Model");
+    mkdir("app/MyApp/views");
+
+    $root = fopen("app/MyApp/Controller/Root.php", "w") or
+        die("Failed to open Root.php\n");
+
+    $root_txt = <<<EOS
+<?php
+namespace MyApp\Controller;
+
+class Root extends \Controller {
+    /**
+      * @route /
+      * @method get
+      */
+    public static function index() {
+        echo "<h1>Hello, World!</h1>";
+    }
+}
+EOS;
+    fwrite($root, $root_txt);
+    fclose($root);
+    echo("-> Finished writing Root.php\n");
+}
+
 createComposer();
+createTestApp();
 addIndex(); 
 echo("-> Attempting to download Larkspur via Composer\n");
 system("composer require larkspur/larkspur");
