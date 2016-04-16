@@ -1,7 +1,4 @@
 <?php
-\Larkspur::module('View/Twig/Autoloader');
-\Twig_Autoloader::register();
-
 class View
 {
 	public static $loader = null;
