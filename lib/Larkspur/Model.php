@@ -3,7 +3,7 @@
 class Model {
     private static $models = array();
     public function __construct() {
-        self::$models = $models;
+        self::$models = []; 
     }
 
     public static function model_exists($key, $arr=false) {
